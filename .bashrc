@@ -12,11 +12,12 @@
 # Platform detection
 # ==================
 
-case `uname` in
-    Darwin)  isOSX=true;     platform='osx';;
-    Linux)   isLinux=true    platform='linux';;
-    FreeBSD) isBSD=true;     platform='bsd';;
-    Cygwin)  isWindows=true; platform='windows';;
+platform=`uname`
+case $platform in
+    Darwin)  isOSX=yes;;
+    Linux)   isLinux=yes;;
+    FreeBSD) isBSD=yes;;
+    Cygwin)  isWindows=yes;;
 esac
 
 
@@ -24,14 +25,14 @@ esac
 # =====================
 
 case "$TERM" in
-    xterm-*color) termColors=true;;
+    xterm-*color) termColors=yes;;
 esac
 
 
 # Environment Variables
 # =====================
 
-if [ $termColors == yes ]; then
+if [[ $termColors == yes ]]; then
     export PS1='\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[0m\]\$ '
 else
     export PS1='\u@\h:\w\$ '
@@ -54,8 +55,8 @@ fi
 # Aliases
 # =======
 
-if [ $termColors == yes ]; then
-    if [ $isOSX == yes -o $isBSD == yes ]; then
+if [[ $termColors == yes ]]; then
+    if [[ $isOSX == yes || $isBSD == yes ]]; then
         alias ls='ls -G'
         alias grep='grep -G'
         alias fgrep='fgrep -G'
