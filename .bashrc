@@ -26,6 +26,7 @@ esac
 
 case "$TERM" in
     xterm-*color) termColors=yes;;
+    xterm) termColors=yes;;
 esac
 
 
