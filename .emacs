@@ -143,7 +143,7 @@
 (eval-after-load "thesaurus"
   '(progn (setq thesaurus-bhl-api-key "699761ef74acd451675d335fa614f48e")))
 
-(autoload 'magit "magit" "" t)
+;(require 'magit)
 
 (autoload 'gtags-mode "gtags" "Minor mode for GNU global tags support." t)
 
@@ -443,6 +443,17 @@ into byte code."
   (interactive)
   (byte-compile-dot-emacs)
   (mapc 'byte-compile-directory my-load-path))
+
+
+; Load init files
+; ------------------------------------------------------------------------------
+
+(let ((base "~/.site-lisp/init.d"))
+  (dolist (f (directory-files base))
+    (let ((name (concat base "/" f)))
+      (when (and (not (equal f ".."))
+                 (not (equal f ".")))
+        (load-file name)))))
 
 
 ; Profile .emacs load time
