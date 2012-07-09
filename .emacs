@@ -390,10 +390,11 @@
 (defun my-comint-clear ()
   "Clears the current comint buffer."
   (interactive)
-  (let ((old-max comint-buffer-maximum-size))
-    (setq comint-buffer-maximum-size 0)
-    (comint-truncate-buffer)
-    (setq comint-buffer-maximum-size old-max)))
+  (erase-buffer)
+  (comint-send-input))
+
+(add-hook 'shell-mode-hook
+          (lambda () (local-set-key "\C-c l" 'my-comint-clear)))
 
 
 ; Misc.
